@@ -4,9 +4,8 @@ plots
 Manage matplotlib settings for publication quality plots.
 
 Compiled ideas from both
-* [http://damon-is-a-geek.com/publication-ready-the-first-time-beautiful-reproducible-plots-with-matplotlib.html](Damon
-McDougall)
-* [http://wiki.scipy.org/Cookbook/Matplotlib/LaTeX_Examples](Scipy Cookbook)
+* [Damon McDougall](http://damon-is-a-geek.com/publication-ready-the-first-time-beautiful-reproducible-plots-with-matplotlib.html)
+* [Scipy Cookbook](http://wiki.scipy.org/Cookbook/Matplotlib/LaTeX_Examples)
 
 
 TODO
