@@ -42,6 +42,9 @@ class plot(object):
         self.font = font
         self.max_ticks = max_ticks
 
+        # dictionary containing the figures
+        self.figs = {}
+
         # now run through the first set up
         self.set_font_size(font_size)
         self.set_font(font_family, font)
@@ -55,10 +58,11 @@ class plot(object):
         self.font_size = font_size
 
         # update matplotlib
+        rcParams['font.size'] = font_size
         rcParams['axes.labelsize'] = font_size
-        rcParams['xtick.labelsize'] = font_size
-        rcParams['ytick.labelsize'] = font_size
         rcParams['legend.fontsize'] = font_size
+        rcParams['xtick.labelsize'] = font_size-2
+        rcParams['ytick.labelsize'] = font_size-2
 
     def set_font(self, font_family, font, tex=True):
         """Set font
@@ -90,6 +94,16 @@ class plot(object):
         self.max_ticks = max_ticks
         self.locator = MaxNLocator(max_ticks)
 
+        # if figures already exist, update them
+        # if len(self.figs) > 0:
+        #     for j in self.figs:
+        #         # get the axis and set the max ticks
+        #         ax = self.figs[j].gca()
+
+        #         # set the max ticks
+        #         ax.xaxis.set_major_locator(self.locator)
+        #         ax.yaxis.set_major_locator(self.locator)
+
     def set_fig_dims(self, txt_width, frac_width):
         """Return figure dimensions WxH in inches
 
@@ -100,6 +114,7 @@ class plot(object):
         Get the textwidth from the document by putting this in here
         and checking out the output console::
           \showthe\textwidth
+          \showthe\columnwidth
 
         Keyword Arguments:
         txt_width  -- text width of latex document (pts)
@@ -116,3 +131,33 @@ class plot(object):
 
         # update matplotlib
         rcParams['figure.figsize'] = self.fig_dims
+
+    def new_figure(self, label):
+        """Add a new figure for plotting
+
+        Keyword Arguments:
+        label -- Name of figure which will also be used as default
+        file name
+        """
+        # add figure to the dictionary
+        self.figs[label] = plt.figure()
+
+    def save_figures(self):
+        """Save the figures to disk.
+        """
+        if len(self.figs) < 0:
+            print("Please create some figures first.")
+        else:
+            for j in self.figs:
+                # get the axis and set the max ticks
+                # ax = self.figs[j].gca()
+
+                # set the max ticks
+                # ax.xaxis.set_major_locator(self.locator)
+                # ax.yaxis.set_major_locator(self.locator)
+
+                # Use all the whitespace
+                self.figs[j].tight_layout(pad=0.1)
+
+                # save as pdf
+                self.figs[j].savefig(str(j)+".pdf")
